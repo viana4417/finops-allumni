@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administração - Allumni</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-banner">
+                <h1 class="banner-text">ALLUMNI</h1>
+            </div>
+            <nav class="sidebar-nav"></nav>
+        </aside>
+
+        <main class="main-content">
+            <h1 class="page-title">Administração</h1>
+
+            <div class="tab-row">
+                <button class="tab-btn active" data-tab="usuarios" onclick="mostrarAba('usuarios')">Usuários</button>
+                <button class="tab-btn" data-tab="vagas" onclick="mostrarAba('vagas')">Vagas</button>
+                <button class="tab-btn" data-tab="eventos" onclick="mostrarAba('eventos')">Eventos</button>
+                <button class="tab-btn" data-tab="grupos" onclick="mostrarAba('grupos')">Grupos</button>
+            </div>
+
+            <section id="abaUsuarios" class="card admin-card aba-conteudo">
+                <div class="admin-section">
+                    <h2 class="section-title">Gerenciar Usuários</h2>
+                    <div id="adminContent" class="admin-list">
+                        <p class="loading-state">Carregando usuários...</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="abaVagas" class="card admin-card aba-conteudo" style="display: none;">
+                <div class="admin-section">
+                    <h2 class="section-title">Gerenciar Vagas</h2>
+
+                    <form id="formCriarVaga" onsubmit="criarNovaVaga(event)">
+                        <div class="admin-grid">
+                            <div class="admin-field">
+                                <label for="vagaTitulo">Título</label>
+                                <input type="text" id="vagaTitulo" required>
+                            </div>
+                            <div class="admin-field">
+                                <label for="vagaEmpresa">Empresa</label>
+                                <input type="text" id="vagaEmpresa" required>
+                            </div>
+                            <div class="admin-field">
+                                <label for="vagaLocalizacao">Localização</label>
+                                <input type="text" id="vagaLocalizacao">
+                            </div>
+                            <div class="admin-field">
+                                <label for="vagaTipo">Tipo</label>
+                                <input type="text" id="vagaTipo" placeholder="CLT, PJ, Estágio">
+                            </div>
+                            <div class="admin-field">
+                                <label for="vagaSalarioMin">Salário mínimo</label>
+                                <input type="number" id="vagaSalarioMin">
+                            </div>
+                            <div class="admin-field">
+                                <label for="vagaSalarioMax">Salário máximo</label>
+                                <input type="number" id="vagaSalarioMax">
+                            </div>
+                        </div>
+
+                        <div class="admin-field" style="margin-top: 14px;">
+                            <label for="vagaDescricao">Descrição</label>
+                            <textarea id="vagaDescricao"></textarea>
+                        </div>
+
+                        <div class="admin-field" style="margin-top: 14px;">
+                            <label for="vagaRequisitos">Requisitos</label>
+                            <textarea id="vagaRequisitos"></textarea>
+                        </div>
+
+                        <button class="btn-primary" type="submit" style="margin-top: 16px;">Criar vaga</button>
+                    </form>
+
+                    <div id="vagasList" class="admin-list">
+                        <p class="loading-state">Carregando vagas...</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="abaEventos" class="card admin-card aba-conteudo" style="display: none;">
+                <div class="admin-section">
+                    <h2 class="section-title">Gerenciar Eventos e Palestras</h2>
+
+                    <form id="formCriarEvento" onsubmit="criarNovoEvento(event)">
+                        <div class="admin-grid">
+                            <div class="admin-field">
+                                <label for="eventoTitulo">Título</label>
+                                <input type="text" id="eventoTitulo" required>
+                            </div>
+                            <div class="admin-field">
+                                <label for="eventoCategoria">Categoria</label>
+                                <select id="eventoCategoria" required>
+                                    <option value="evento">Evento</option>
+                                    <option value="palestra">Palestra</option>
+                                </select>
+                            </div>
+                            <div class="admin-field">
+                                <label for="eventoData">Data e hora</label>
+                                <input type="datetime-local" id="eventoData">
+                            </div>
+                            <div class="admin-field">
+                                <label for="eventoLocalizacao">Local</label>
+                                <input type="text" id="eventoLocalizacao">
+                            </div>
+                            <div class="admin-field">
+                                <label for="eventoLink">Link</label>
+                                <input type="url" id="eventoLink" placeholder="https://...">
+                            </div>
+                            <div class="admin-field">
+                                <label for="eventoDestaque">Evento em destaque</label>
+                                <select id="eventoDestaque">
+                                    <option value="0">Não</option>
+                                    <option value="1">Sim</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="admin-field" style="margin-top: 14px;">
+                            <label for="eventoResumo">Resumo curto</label>
+                            <textarea id="eventoResumo"></textarea>
+                        </div>
+
+                        <div class="admin-field" style="margin-top: 14px;">
+                            <label for="eventoDescricao">Descrição completa</label>
+                            <textarea id="eventoDescricao"></textarea>
+                        </div>
+
+                        <button class="btn-primary" type="submit" style="margin-top: 16px;">Criar evento</button>
+                    </form>
+
+                    <div id="eventosList" class="admin-list">
+                        <p class="loading-state">Carregando eventos...</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="abaGrupos" class="card admin-card aba-conteudo" style="display: none;">
+                <div class="admin-section">
+                    <h2 class="section-title">Gerenciar Grupos</h2>
+
+                    <form id="formCriarGrupo" onsubmit="criarNovoGrupo(event)">
+                        <div class="admin-grid">
+                            <div class="admin-field">
+                                <label for="grupoNome">Nome do grupo</label>
+                                <input type="text" id="grupoNome" required>
+                            </div>
+                            <div class="admin-field">
+                                <label for="grupoDescricao">Descrição</label>
+                                <input type="text" id="grupoDescricao">
+                            </div>
+                        </div>
+
+                        <button class="btn-primary" type="submit" style="margin-top: 16px;">Criar grupo</button>
+                    </form>
+
+                    <div id="gruposList" class="admin-list">
+                        <p class="loading-state">Carregando grupos...</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="database-browser.js"></script>
+    <script src="dashboard-api.js"></script>
+    <script src="logout.js"></script>
+    <script src="nav-helper.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
