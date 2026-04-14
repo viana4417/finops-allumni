@@ -3,74 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Allumni</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Dashboard Financeiro FinOps</title>
+    <link rel="stylesheet" href="finops.css">
 </head>
 <body>
-    
-    <!-- Logo Section -->
-    <header class="logo-section">
-        <div class="logo-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="12" cy="8" r="3" fill="white"/>
-                <circle cx="6" cy="14" r="2" fill="white"/>
-                <circle cx="18" cy="14" r="2" fill="white"/>
-                <line x1="12" y1="11" x2="6" y2="12" stroke="white" stroke-width="1.5"/>
-                <line x1="12" y1="11" x2="18" y2="12" stroke="white" stroke-width="1.5"/>
-            </svg>
-        </div>
-        <span class="logo-text">allumni</span>
-    </header>
-
-    <!-- Main Form Card -->
-    <main class="login-container">
-        <div class="form-card">
-            <!-- User Icon -->
-            <div class="user-icon">
-                <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <linearGradient id="userGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" style="stop-color:#7B2CBF;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#0066FF;stop-opacity:1" />
-                        </linearGradient>
-                    </defs>
-                    <circle cx="40" cy="25" r="12" fill="url(#userGradient)"/>
-                    <path d="M20 65 Q20 50 40 50 Q60 50 60 65" stroke="url(#userGradient)" stroke-width="8" fill="none" stroke-linecap="round"/>
-                </svg>
+    <main class="finops-shell">
+        <section class="finops-hero-card">
+            <div>
+                <p class="finops-kicker">Pesquisa Curricularizada</p>
+                <h1>Dashboard Financeiro de Consumo de Recursos</h1>
+                <p class="finops-description">
+                    Painel focado em FinOps para comparar uma rotina otimizada e uma não otimizada usando como fonte
+                    as tabelas do sistema <strong>allumni-main</strong>. O cálculo simula quanto essa operação custaria
+                    se o Allumni estivesse hospedado em um servidor de aplicação na nuvem, com cobrança por CPU e RAM.
+                </p>
             </div>
 
-            <!-- Form Title -->
-            <h1 class="form-title" id="formTitle">Login</h1>
+            <div class="finops-actions">
+                <button id="runOptimizedBtn" class="btn-secondary" type="button">Executar otimizada</button>
+                <button id="runNonOptimizedBtn" class="btn-secondary" type="button">Executar não otimizada</button>
+                <button id="runCompareBtn" class="btn-primary" type="button">Comparar execuções</button>
+                <a id="downloadCsvBtn" class="btn-secondary link-button" href="/api/finops/dados-csv">Baixar CSV</a>
+            </div>
+        </section>
 
-            <!-- Form -->
-            <form class="login-form" id="authForm">
-                <div class="form-group hidden" id="nomeGroup">
-                    <label for="nome">Nome</label>
-                    <input type="text" id="nome" name="nome">
+        <section class="finops-panel-grid">
+            <article class="panel-card">
+                <h2>Modelo de custo</h2>
+                <div id="pricingBox">
+                    <p class="loading-state">Carregando tabela de preços...</p>
                 </div>
+            </article>
 
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
+            <article class="panel-card">
+                <h2>Resumo médio e fonte</h2>
+                <div id="summaryBox" class="summary-grid">
+                    <p class="loading-state">Carregando resumo...</p>
                 </div>
+            </article>
+        </section>
 
-                <div class="form-group">
-                    <label for="senha">Senha</label>
-                    <input type="password" id="senha" name="senha" required>
-                </div>
-            </form>
-        </div>
+        <section class="panel-card">
+            <div class="section-header">
+                <h2>Comparativo principal</h2>
+                <p id="comparisonStatus" class="muted-text">Execute a comparação para alimentar o dashboard.</p>
+            </div>
 
-        <!-- Submit Button -->
-        <button class="submit-button" type="button" id="submitButton">Entrar</button>
+            <div class="comparison-grid">
+                <article class="result-card optimized-card">
+                    <h3>Versão otimizada</h3>
+                    <div id="optimizedMetrics" class="metric-list">
+                        <p class="empty-state">Nenhuma execução ainda.</p>
+                    </div>
+                </article>
 
-        <!-- Toggle Button -->
-        <button class="toggle-button" type="button" id="toggleButton">
-            Quero me cadastrar
-        </button>
+                <article class="result-card non-optimized-card">
+                    <h3>Versão não otimizada</h3>
+                    <div id="nonOptimizedMetrics" class="metric-list">
+                        <p class="empty-state">Nenhuma execução ainda.</p>
+                    </div>
+                </article>
+            </div>
+
+            <div id="barsBox" class="bars-area">
+                <p class="empty-state">Os gráficos simples aparecerão aqui após a comparação.</p>
+            </div>
+        </section>
+
+        <section class="panel-card">
+            <div class="section-header">
+                <h2>Histórico persistido</h2>
+                <p class="muted-text">As execuções ficam registradas no SQLite para análise comparativa.</p>
+            </div>
+
+            <div class="table-wrap">
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Versão</th>
+                            <th>Registros</th>
+                            <th>Tempo</th>
+                            <th>CPU</th>
+                            <th>RAM média</th>
+                            <th>Custo</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyTableBody">
+                        <tr>
+                            <td colspan="7" class="loading-state">Carregando histórico...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </main>
 
-    <script src="database-browser.js"></script>
-    <script src="script-simple.js"></script>
+    <script src="finops.js"></script>
 </body>
 </html>

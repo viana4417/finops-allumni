@@ -1,0 +1,3 @@
+data_hora,versao,tempo_execucao_ms,cpu_total_ms,memoria_media_mb,memoria_pico_mb,cpu_segundos_faturados,ram_gb_segundos_faturados,custo_cpu,custo_ram,custo_total
+2026-04-14 02:19:26,nao_otimizada,968.158,1876.991,9.919,560.747,1.876991,0.009378085158203125,0.000088,0,0.000088
+2026-04-14 02:19:26,otimizada,0.393,0.475,548.755,548.851,0.000475,0.0002106061669921875,0,0,0
