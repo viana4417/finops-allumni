@@ -207,6 +207,10 @@ button {
     gap: 14px;
 }
 
+.hidden {
+    display: none;
+}
+
 .finops-bar-group {
     display: grid;
     gap: 8px;
@@ -237,6 +241,32 @@ button {
 
 .finops-bar.non-optimized {
     background: linear-gradient(90deg, #d86d46 0%, #f3a37f 100%);
+}
+
+.chart-png-box {
+    display: grid;
+    gap: 12px;
+    margin-top: 22px;
+    padding-top: 20px;
+    border-top: 1px solid #edf2f8;
+}
+
+.chart-png-box.hidden {
+    display: none;
+}
+
+.chart-download {
+    color: #1958b6;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.chart-png-image {
+    width: 100%;
+    max-width: 1000px;
+    border: 1px solid #e6edf7;
+    border-radius: 12px;
+    background: #f8fbff;
 }
 
 .table-wrap {

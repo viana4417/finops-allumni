@@ -6,6 +6,7 @@ const path = require('path');
 const fs = require('fs');
 const { monitorExecution } = require('./finops/monitor');
 const { SIMULATED_PRICING } = require('./finops/pricing');
+const { saveCostChartPng } = require('./finops/cost-chart');
 const {
     fetchAllumniSnapshot,
     createAllumniWorkload,
@@ -23,6 +24,7 @@ app.use(express.static(path.join(__dirname)));
 
 const dbPath = path.join(__dirname, 'database', 'allumni.db');
 const allumniSourceDbPath = path.join(__dirname, 'allumni-main', 'database', 'allumni.db');
+const costChartPath = path.join(__dirname, 'exports', 'grafico_custos.png');
 const db = new sqlite3.Database(dbPath, (err) => {
     if (err) {
         console.error('Erro ao conectar ao banco de dados:', err.message);
@@ -183,6 +185,32 @@ function buildComparisonResponse(optimizedExecution, nonOptimizedExecution) {
     };
 }
 
+function getCostChartInfo() {
+    if (!fs.existsSync(costChartPath)) {
+        return null;
+    }
+
+    const stats = fs.statSync(costChartPath);
+
+    return {
+        fileName: 'grafico_custos.png',
+        savedPath: costChartPath,
+        url: `/api/finops/grafico-custos?t=${Math.round(stats.mtimeMs)}`
+    };
+}
+
+async function withGeneratedCostChart(payload, executions) {
+    await saveCostChartPng({
+        executions,
+        outputPath: costChartPath
+    });
+
+    return {
+        ...payload,
+        grafico: getCostChartInfo()
+    };
+}
+
 app.get('/api/finops/configuracao', async (req, res) => {
     try {
         await finopsSchemaReady;
@@ -195,7 +223,8 @@ app.get('/api/finops/configuracao', async (req, res) => {
             source: {
                 system: 'allumni-main',
                 databasePath: allumniSourceDbPath
-            }
+            },
+            grafico: getCostChartInfo()
         });
     } catch (error) {
         console.error('Erro ao carregar configuração FinOps:', error);
@@ -258,6 +287,16 @@ app.get('/api/finops/dados-csv', async (req, res) => {
     }
 });
 
+app.get('/api/finops/grafico-custos', (req, res) => {
+    if (!fs.existsSync(costChartPath)) {
+        res.status(404).json({ error: 'O gráfico ainda não foi gerado' });
+        return;
+    }
+
+    res.setHeader('Cache-Control', 'no-store');
+    res.sendFile(costChartPath);
+});
+
 app.get('/api/finops/historico', async (req, res) => {
     try {
         await finopsSchemaReady;
@@ -307,7 +346,7 @@ app.post('/api/finops/executar', async (req, res) => {
         }
 
         const execution = await executeFinOpsAnalysis(version);
-        res.json(execution);
+        res.json(await withGeneratedCostChart(execution, [execution]));
     } catch (error) {
         console.error('Erro ao executar análise FinOps:', error);
         res.status(500).json({ error: 'Erro ao executar análise FinOps' });
@@ -319,7 +358,8 @@ app.post('/api/finops/comparar', async (req, res) => {
         const nonOptimizedExecution = await executeFinOpsAnalysis('nao_otimizada');
         const optimizedExecution = await executeFinOpsAnalysis('otimizada');
 
-        res.json(buildComparisonResponse(optimizedExecution, nonOptimizedExecution));
+        const comparison = buildComparisonResponse(optimizedExecution, nonOptimizedExecution);
+        res.json(await withGeneratedCostChart(comparison, [optimizedExecution, nonOptimizedExecution]));
     } catch (error) {
         console.error('Erro ao comparar execuções FinOps:', error);
         res.status(500).json({ error: 'Erro ao comparar execuções FinOps' });

@@ -10,6 +10,7 @@ Projeto reduzido para exibir apenas o dashboard financeiro do trabalho da faculd
 - grava o histórico das execuções no SQLite
 - mostra os resultados em um dashboard web simples
 - exporta os dados coletados em CSV para apoiar a etapa de Análise de Dados
+- gera um gráfico PNG com Matplotlib em `exports/grafico_custos.png`
 
 ## Estrutura principal
 
@@ -19,17 +20,20 @@ Projeto reduzido para exibir apenas o dashboard financeiro do trabalho da faculd
 - `server.js`: backend com as rotas FinOps
 - `finops/monitor.js`: coleta de métricas reais do processo
 - `finops/pricing.js`: fórmula de custo
+- `finops/generate-cost-chart.py`: geração do gráfico PNG com Matplotlib
 - `finops/allumni-report-service.js`: rotina analítica baseada nas tabelas `usuarios`, `vagas`, `grupos`, `candidaturas` e `mensagens` do `allumni-main`
 
 ## Como rodar
 
 1. Instale dependências:
    `npm install`
-2. Inicie o servidor:
+2. Instale a dependência Python do gráfico:
+   `python3 -m pip install -r requirements.txt`
+3. Inicie o servidor:
    `npm start`
-3. Abra no navegador:
+4. Abra no navegador:
    `http://localhost:3000`
-4. Para baixar o arquivo de dados:
+5. Para baixar o arquivo de dados:
    `http://localhost:3000/api/finops/dados-csv`
 
 ## Fórmula usada

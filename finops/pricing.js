@@ -9,10 +9,15 @@ const SIMULATED_PRICING = {
         cpuPerVcpuSecond: 0.000047,
         ramPerGbSecond: 0.0000064
     },
+    billing: {
+        minimumOperationCost: 0.000001,
+        rule: 'Operacoes com custo calculado abaixo do minimo recebem uma cobranca simbolica minima.'
+    },
     assumptions: [
         'O Allumni esta publicado em um servidor de aplicacao na nuvem.',
         'Cada operacao consome uma fração do tempo de CPU e da memoria RAM desse servidor.',
-        'O custo da operacao e proporcional ao uso efetivo de CPU e RAM durante a execucao.'
+        'O custo da operacao e proporcional ao uso efetivo de CPU e RAM durante a execucao.',
+        'Operacoes muito rapidas recebem custo minimo para evitar arredondamento para zero.'
     ]
 };
 
@@ -28,6 +33,10 @@ function calculateFinOpsCost(metrics) {
 
     const cpuCost = cpuSeconds * SIMULATED_PRICING.rates.cpuPerVcpuSecond;
     const ramCost = ramGbSeconds * SIMULATED_PRICING.rates.ramPerGbSecond;
+    const subtotalCost = cpuCost + ramCost;
+    const minimumOperationCost = SIMULATED_PRICING.billing.minimumOperationCost;
+    const minimumCostApplied = subtotalCost > 0 && subtotalCost < minimumOperationCost;
+    const totalCost = minimumCostApplied ? minimumOperationCost : subtotalCost;
 
     return {
         elapsedSeconds: Number(elapsedSeconds.toFixed(4)),
@@ -36,7 +45,10 @@ function calculateFinOpsCost(metrics) {
         ramGbSeconds: Number(ramGbSeconds.toFixed(6)),
         cpuCost: toCurrency(cpuCost),
         ramCost: toCurrency(ramCost),
-        totalCost: toCurrency(cpuCost + ramCost)
+        subtotalCost: toCurrency(subtotalCost),
+        minimumAdjustment: toCurrency(totalCost - subtotalCost),
+        minimumCostApplied,
+        totalCost: toCurrency(totalCost)
     };
 }
 

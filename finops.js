@@ -54,6 +54,7 @@ function renderPricing(config) {
         <p><strong>Fórmula:</strong> <code>Custo = (CPU em segundos x Preço_vCPU) + (RAM média em GB x Tempo x Preço_RAM)</code></p>
         <p><strong>Preço vCPU:</strong> ${formatMoney(config.pricing.rates.cpuPerVcpuSecond)} por vCPU-segundo.</p>
         <p><strong>Preço RAM:</strong> ${formatMoney(config.pricing.rates.ramPerGbSecond)} por GB-segundo.</p>
+        <p><strong>Custo mínimo:</strong> ${formatMoney(config.pricing.billing.minimumOperationCost)} por operação, quando o cálculo bruto ficaria abaixo disso.</p>
         <p><strong>Operação monitorada:</strong> ${config.operation.description}</p>
         <p><strong>Sistema fonte:</strong> ${config.source.system}</p>
         <p><strong>Premissa:</strong> ${config.pricing.assumptions[0]}</p>
@@ -166,6 +167,26 @@ function renderBars(comparison) {
     }).join('');
 }
 
+function renderChartPng(chart) {
+    const chartBox = document.getElementById('chartPngBox');
+    const chartImage = document.getElementById('chartPngImage');
+    const chartDownload = document.getElementById('chartPngDownload');
+
+    if (!chart?.url) {
+        chartBox.classList.add('hidden');
+        chartImage.removeAttribute('src');
+        return;
+    }
+
+    const imageUrl = chart.url.includes('?')
+        ? `${chart.url}&view=${Date.now()}`
+        : `${chart.url}?view=${Date.now()}`;
+
+    chartImage.src = imageUrl;
+    chartDownload.href = chart.url;
+    chartBox.classList.remove('hidden');
+}
+
 function renderHistory(history) {
     const body = document.getElementById('historyTableBody');
 
@@ -191,6 +212,7 @@ function renderComparison(comparison) {
     renderMetricCard('optimizedMetrics', comparison?.versaoOtimizada);
     renderMetricCard('nonOptimizedMetrics', comparison?.versaoNaoOtimizada);
     renderBars(comparison);
+    renderChartPng(comparison?.grafico);
 
     const status = document.getElementById('comparisonStatus');
     if (comparison) {
@@ -210,6 +232,7 @@ async function refreshDashboard() {
     renderPricing(config);
     renderSummary(summary, config);
     renderHistory(history);
+    renderChartPng(config.grafico);
 }
 
 async function runSingleVersion(version) {
@@ -227,6 +250,7 @@ async function runSingleVersion(version) {
             renderMetricCard('nonOptimizedMetrics', execution);
         }
 
+        renderChartPng(execution.grafico);
         await refreshDashboard();
         document.getElementById('comparisonStatus').textContent =
             `Execução ${version === 'otimizada' ? 'otimizada' : 'não otimizada'} concluída com sucesso.`;
