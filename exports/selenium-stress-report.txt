@@ -1,0 +1,19 @@
+URL testada: http://localhost:3002
+Usuarios simulados: 10
+Concorrencia: 2
+Usuario 1: OK - 3602.11 ms
+Usuario 2: OK - 3921.37 ms
+Usuario 3: OK - 3303.18 ms
+Usuario 4: OK - 3316.04 ms
+Usuario 5: OK - 3308.43 ms
+Usuario 6: OK - 3311.22 ms
+Usuario 7: OK - 3344.02 ms
+Usuario 8: OK - 3399.81 ms
+Usuario 9: OK - 3349.36 ms
+Usuario 10: OK - 3334.36 ms
+
+Resumo Selenium
+Sucessos: 10
+Falhas: 0
+Tempo medio: 3418.99 ms
+Tempo total: 20056.56 ms

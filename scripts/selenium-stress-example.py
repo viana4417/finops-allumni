@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 import os
+import shutil
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
 
 
 URL = os.getenv("SELENIUM_STRESS_URL", "http://localhost:3000")
@@ -14,6 +16,13 @@ WAIT_SECONDS = float(os.getenv("SELENIUM_STRESS_WAIT_SECONDS", "2"))
 
 
 def create_driver():
+    browser = os.getenv("SELENIUM_BROWSER", "auto").lower()
+
+    if browser in ("firefox", "auto") and shutil.which("firefox"):
+        options = FirefoxOptions()
+        options.add_argument("-headless")
+        return webdriver.Firefox(options=options)
+
     options = Options()
     options.add_argument("--headless=new")
     options.add_argument("--no-sandbox")
