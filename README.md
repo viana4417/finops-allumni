@@ -36,6 +36,14 @@ Projeto reduzido para exibir apenas o dashboard financeiro do trabalho da faculd
 5. Para baixar o arquivo de dados:
    `http://localhost:3000/api/finops/dados-csv`
 
+## Teste de stress
+
+Para executar testes reais de carga no backend ALUMNI e na rota FinOps:
+
+`npm run stress`
+
+O script sobe o ALUMNI na porta `3100`, o FinOps na porta `3101`, dispara requisições concorrentes em rotas de login, vagas, grupos, mensagens e comparação FinOps, e salva os resultados em `exports/stress-test-report.json` e `exports/stress-test-report.md`.
+
 ## Fórmula usada
 
 `Custo = (CPU em segundos x Preço_vCPU) + (RAM média em GB x Tempo da operação x Preço_RAM)`

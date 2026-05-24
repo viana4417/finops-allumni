@@ -1,0 +1,154 @@
+{
+  "generatedAt": "2026-05-24T21:16:04.306Z",
+  "ports": {
+    "allumni": 3100,
+    "finops": 3101
+  },
+  "scenarios": [
+    {
+      "name": "Login",
+      "target": "http://localhost:3100/api/auth/login",
+      "totalRequests": 80,
+      "concurrency": 15,
+      "durationMs": 916.39,
+      "requestsPerSecond": 87.3,
+      "successCount": 80,
+      "errorCount": 0,
+      "statusCodes": {
+        "200": 80
+      },
+      "latency": {
+        "minMs": 55.27,
+        "avgMs": 161.26,
+        "p50Ms": 147.5,
+        "p95Ms": 228.96,
+        "p99Ms": 229.69,
+        "maxMs": 229.69
+      },
+      "resources": {
+        "sampleCount": 5,
+        "avgCpuPercent": 206.8,
+        "maxCpuPercent": 289,
+        "avgRssMb": 72.82,
+        "maxRssMb": 73.9
+      },
+      "sampleErrors": []
+    },
+    {
+      "name": "Vagas",
+      "target": "http://localhost:3100/api/vagas",
+      "totalRequests": 150,
+      "concurrency": 30,
+      "durationMs": 72.66,
+      "requestsPerSecond": 2064.49,
+      "successCount": 150,
+      "errorCount": 0,
+      "statusCodes": {
+        "200": 150
+      },
+      "latency": {
+        "minMs": 3.07,
+        "avgMs": 13.82,
+        "p50Ms": 9.17,
+        "p95Ms": 28.33,
+        "p99Ms": 36.39,
+        "maxMs": 43.27
+      },
+      "resources": {
+        "sampleCount": 2,
+        "avgCpuPercent": 284,
+        "maxCpuPercent": 289,
+        "avgRssMb": 74.35,
+        "maxRssMb": 74.79
+      },
+      "sampleErrors": []
+    },
+    {
+      "name": "Grupos",
+      "target": "http://localhost:3100/api/grupos",
+      "totalRequests": 150,
+      "concurrency": 30,
+      "durationMs": 40.05,
+      "requestsPerSecond": 3745.42,
+      "successCount": 150,
+      "errorCount": 0,
+      "statusCodes": {
+        "200": 150
+      },
+      "latency": {
+        "minMs": 2.68,
+        "avgMs": 7.36,
+        "p50Ms": 7.37,
+        "p95Ms": 9.61,
+        "p99Ms": 10.91,
+        "maxMs": 11.07
+      },
+      "resources": {
+        "sampleCount": 2,
+        "avgCpuPercent": 275,
+        "maxCpuPercent": 277,
+        "avgRssMb": 77.22,
+        "maxRssMb": 79.64
+      },
+      "sampleErrors": []
+    },
+    {
+      "name": "Mensagens de grupo",
+      "target": "http://localhost:3100/api/chat/grupo/1",
+      "totalRequests": 100,
+      "concurrency": 20,
+      "durationMs": 29.4,
+      "requestsPerSecond": 3401.38,
+      "successCount": 100,
+      "errorCount": 0,
+      "statusCodes": {
+        "200": 100
+      },
+      "latency": {
+        "minMs": 2.1,
+        "avgMs": 5.41,
+        "p50Ms": 5.52,
+        "p95Ms": 7.03,
+        "p99Ms": 7.81,
+        "maxMs": 7.9
+      },
+      "resources": {
+        "sampleCount": 2,
+        "avgCpuPercent": 272,
+        "maxCpuPercent": 274,
+        "avgRssMb": 81.93,
+        "maxRssMb": 84.16
+      },
+      "sampleErrors": []
+    },
+    {
+      "name": "FinOps comparacao",
+      "target": "http://localhost:3101/api/finops/comparar",
+      "totalRequests": 4,
+      "concurrency": 2,
+      "durationMs": 6401.51,
+      "requestsPerSecond": 0.62,
+      "successCount": 4,
+      "errorCount": 0,
+      "statusCodes": {
+        "200": 4
+      },
+      "latency": {
+        "minMs": 1885.85,
+        "avgMs": 3197.16,
+        "p50Ms": 3030.53,
+        "p95Ms": 4515.33,
+        "p99Ms": 4515.33,
+        "maxMs": 4515.33
+      },
+      "resources": {
+        "sampleCount": 27,
+        "avgCpuPercent": 103.99,
+        "maxCpuPercent": 137,
+        "avgRssMb": 1592.84,
+        "maxRssMb": 2599.39
+      },
+      "sampleErrors": []
+    }
+  ]
+}

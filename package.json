@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "stress": "node scripts/stress-test.js"
   },
   "keywords": ["finops", "dashboard", "sqlite", "monitoramento"],
   "author": "viana4417",
