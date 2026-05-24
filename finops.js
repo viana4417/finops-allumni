@@ -51,9 +51,11 @@ function renderPricing(config) {
     pricingBox.innerHTML = `
         <p><strong>Cenário simulado:</strong> ${config.pricing.cloudProfile.serviceModel}</p>
         <p><strong>Perfil do servidor:</strong> ${config.pricing.cloudProfile.serverProfile}</p>
-        <p><strong>Fórmula:</strong> <code>Custo = (CPU em segundos x Preço_vCPU) + (RAM média em GB x Tempo x Preço_RAM)</code></p>
-        <p><strong>Preço vCPU:</strong> ${formatMoney(config.pricing.rates.cpuPerVcpuSecond)} por vCPU-segundo.</p>
+        <p><strong>Fórmula:</strong> <code>Custo = (RAM_GB x R$ 0,10 x tempo_s) + (CPU_horas x R$ 1,00)</code></p>
         <p><strong>Preço RAM:</strong> ${formatMoney(config.pricing.rates.ramPerGbSecond)} por GB-segundo.</p>
+        <p><strong>Preço CPU:</strong> ${formatMoney(config.pricing.rates.cpuPerHour)} por hora de CPU.</p>
+        <p><strong>Preço armazenamento:</strong> ${formatMoney(config.pricing.rates.storagePerGbHour)} por GB-hora.</p>
+        <p><strong>Exemplo do enunciado:</strong> 2 GB RAM por 10s + 2h CPU = ${formatMoney(config.pricing.example.totalCost)}.</p>
         <p><strong>Custo mínimo:</strong> ${formatMoney(config.pricing.billing.minimumOperationCost)} por operação, quando o cálculo bruto ficaria abaixo disso.</p>
         <p><strong>Operação monitorada:</strong> ${config.operation.description}</p>
         <p><strong>Sistema fonte:</strong> ${config.source.system}</p>
@@ -105,7 +107,7 @@ function renderMetricCard(containerId, execution) {
     container.innerHTML = `
         <div class="finops-metric-item"><span>Tempo total</span><strong>${formatNumber(execution.metrics.elapsedMs)} ms</strong></div>
         <div class="finops-metric-item"><span>CPU total</span><strong>${formatNumber(execution.metrics.cpuTotalMs)} ms</strong></div>
-        <div class="finops-metric-item"><span>CPU faturada</span><strong>${formatNumber(execution.costs.cpuSeconds, 4)} s</strong></div>
+        <div class="finops-metric-item"><span>CPU faturada</span><strong>${formatNumber(execution.costs.cpuHours, 8)} h</strong></div>
         <div class="finops-metric-item"><span>RAM média</span><strong>${formatNumber(execution.metrics.averageMemoryMb)} MB</strong></div>
         <div class="finops-metric-item"><span>RAM faturada</span><strong>${formatNumber(execution.costs.ramGbSeconds, 6)} GB.s</strong></div>
         <div class="finops-metric-item"><span>RAM pico</span><strong>${formatNumber(execution.metrics.peakMemoryMb)} MB</strong></div>

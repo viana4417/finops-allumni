@@ -44,9 +44,27 @@ Para executar testes reais de carga no backend ALUMNI e na rota FinOps:
 
 O script sobe o ALUMNI na porta `3100`, o FinOps na porta `3101`, dispara requisições concorrentes em rotas de login, vagas, grupos, mensagens e comparação FinOps, e salva os resultados em `exports/stress-test-report.json` e `exports/stress-test-report.md`.
 
+Também há um exemplo opcional com Selenium, conforme o enunciado:
+
+`python3 scripts/selenium-stress-example.py`
+
+Ele abre navegadores em modo headless para simular usuários acessando a interface. Para um teste de carga mais preciso no backend, use `npm run stress`.
+
 ## Fórmula usada
 
-`Custo = (CPU em segundos x Preço_vCPU) + (RAM média em GB x Tempo da operação x Preço_RAM)`
+Tabela fictícia usada pelo Monitor de Custos Simulado:
+
+- 1 GB de RAM: R$ 0,10 por segundo
+- 1 hora de CPU: R$ 1,00
+- 1 GB de armazenamento: R$ 0,05 por hora
+
+`Custo_RAM = Quantidade_RAM_GB x 0,10 x Tempo_segundos`
+
+`Custo_CPU = Tempo_CPU_horas x 1,00`
+
+`Custo_Total = Custo_RAM + Custo_CPU`
+
+Exemplo do enunciado: 2 GB de RAM por 10 segundos e 2 horas de CPU resultam em `R$ 2,00 + R$ 2,00 = R$ 4,00`.
 
 ## Premissa de FinOps
 
