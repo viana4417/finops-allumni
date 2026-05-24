@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname)));
 
 const dbPath = path.join(__dirname, 'database', 'allumni.db');
-const allumniSourceDbPath = path.join('/home/peleador/Downloads/allumni-main', 'database', 'allumni.db');
+const allumniSourceDbPath = path.join(__dirname, 'allumni-main', 'database', 'allumni.db');
 const db = new sqlite3.Database(dbPath, (err) => {
     if (err) {
         console.error('Erro ao conectar ao banco de dados:', err.message);

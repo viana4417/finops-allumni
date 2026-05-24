@@ -1,6 +1,6 @@
 # Dashboard Financeiro FinOps
 
-Projeto reduzido para exibir apenas o dashboard financeiro do trabalho da faculdade, mas usando como fonte analítica o sistema `~/Downloads/allumni-main`.
+Projeto reduzido para exibir apenas o dashboard financeiro do trabalho da faculdade, usando como fonte analítica a cópia local do sistema `allumni-main` dentro desta pasta.
 
 ## O que ele faz
 

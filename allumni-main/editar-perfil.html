@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Perfil - Allumni</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <style>
+        .form-edit {
+            max-width: 600px;
+        }
+        .form-group-edit {
+            margin-bottom: 20px;
+        }
+        .form-group-edit label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #000;
+        }
+        .form-group-edit input,
+        .form-group-edit textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: inherit;
+        }
+        .form-group-edit textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        .form-group-edit input:focus,
+        .form-group-edit textarea:focus {
+            outline: none;
+            border-color: #0066FF;
+        }
+        .photo-preview {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #0066FF;
+            margin: 20px auto;
+            display: block;
+            cursor: pointer;
+        }
+        .photo-upload-btn {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            background: #0066FF;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .photo-upload-btn:hover {
+            background: #0052CC;
+        }
+        .btn-save {
+            width: 100%;
+            padding: 16px;
+            background: #0066FF;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .btn-save:hover {
+            background: #0052CC;
+        }
+        .btn-save:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        #audioRecorder {
+            margin-top: 10px;
+        }
+        .record-btn {
+            padding: 8px 16px;
+            background: #ff4444;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .record-btn.recording {
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-banner">
+                <h1 class="banner-text">ALLUMNI</h1>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="home.html" class="nav-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M9 22V12H15V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>Home</span>
+                </a>
+                <a href="perfil.html" class="nav-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>Perfil</span>
+                </a>
+                <a href="vagas.html" class="nav-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M14 2V8H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M16 13H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M16 17H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M10 9H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>Vagas</span>
+                </a>
+                <a href="grupos.html" class="nav-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M23 21V19C22.9993 18.1137 22.7044 17.2528 22.1614 16.5523C21.6184 15.8519 20.8581 15.3516 20 15.13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M16 3.13C16.8604 3.35031 17.623 3.85071 18.1676 4.55232C18.7122 5.25392 19.0078 6.11683 19.0078 7.005C19.0078 7.89318 18.7122 8.75608 18.1676 9.45769C17.623 10.1593 16.8604 10.6597 16 10.88" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>Grupos</span>
+                </a>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <h1 class="page-title">Editar Perfil</h1>
+            <div class="card form-edit">
+                <form id="editForm">
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <img id="photoPreview" class="photo-preview" src="" alt="Foto de perfil" onclick="document.getElementById('photoInput').click()">
+                        <input type="file" id="photoInput" accept="image/*" style="display: none;" onchange="handlePhotoUpload(event)">
+                        <button type="button" class="photo-upload-btn" onclick="document.getElementById('photoInput').click()">Escolher Foto</button>
+                    </div>
+                    
+                    <div class="form-group-edit">
+                        <label for="nome">Nome *</label>
+                        <input type="text" id="nome" name="nome" required>
+                    </div>
+                    
+                    <div class="form-group-edit">
+                        <label for="curso">Curso</label>
+                        <input type="text" id="curso" name="curso">
+                    </div>
+                    
+                    <div class="form-group-edit">
+                        <label for="ano_formatura">Ano de Formatura</label>
+                        <input type="number" id="ano_formatura" name="ano_formatura" min="1900" max="2100">
+                    </div>
+                    
+                    <div class="form-group-edit">
+                        <label for="bio">Bio</label>
+                        <textarea id="bio" name="bio" placeholder="Conte um pouco sobre você..."></textarea>
+                    </div>
+                    
+                    <div class="form-group-edit">
+                        <label for="empresa_atual">Empresa Atual</label>
+                        <input type="text" id="empresa_atual" name="empresa_atual">
+                    </div>
+                    
+                    <div class="form-group-edit">
+                        <label for="cargo_atual">Cargo Atual</label>
+                        <input type="text" id="cargo_atual" name="cargo_atual">
+                    </div>
+                    
+                    <div class="form-group-edit">
+                        <label for="telefone">Telefone</label>
+                        <input type="tel" id="telefone" name="telefone">
+                    </div>
+                    
+                    <div class="form-group-edit">
+                        <label for="linkedin_url">LinkedIn</label>
+                        <input type="url" id="linkedin_url" name="linkedin_url" placeholder="https://linkedin.com/in/seu-perfil">
+                    </div>
+                    
+                    <div class="form-group-edit">
+                        <label for="github_url">GitHub</label>
+                        <input type="url" id="github_url" name="github_url" placeholder="https://github.com/seu-usuario">
+                    </div>
+                    
+                    <button type="submit" class="btn-save" id="saveBtn">Salvar Alterações</button>
+                </form>
+            </div>
+        </main>
+    </div>
+    
+    <script src="dashboard-api.js"></script>
+    <script src="logout.js"></script>
+    <script src="nav-helper.js"></script>
+    <script src="editar-perfil.js"></script>
+</body>
+</html>
+

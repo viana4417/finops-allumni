@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vagas e Eventos - Allumni</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-banner">
+                <h1 class="banner-text">ALLUMNI</h1>
+            </div>
+            <nav class="sidebar-nav"></nav>
+        </aside>
+
+        <main class="main-content">
+            <h1 class="page-title">Vagas e Eventos</h1>
+
+            <div class="vagas-layout">
+                <div class="left-column">
+                    <section class="card">
+                        <h2 class="section-title">Vagas</h2>
+                        <div id="vagasContent" class="stack-list">
+                            <p class="loading-state">Carregando vagas...</p>
+                        </div>
+                    </section>
+
+                    <section class="card">
+                        <h2 class="section-title">Palestras</h2>
+                        <div id="palestrasContent" class="poster-grid">
+                            <p class="loading-state">Carregando palestras...</p>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="right-column">
+                    <section class="card event-card">
+                        <h2 class="section-title">Eventos</h2>
+                        <div id="eventosContent">
+                            <p class="loading-state">Carregando eventos...</p>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <div class="bottom-logo">
+                <div class="logo-icon-small">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="8" r="3" fill="white"/>
+                        <circle cx="6" cy="14" r="2" fill="white"/>
+                        <circle cx="18" cy="14" r="2" fill="white"/>
+                        <line x1="12" y1="11" x2="6" y2="12" stroke="white" stroke-width="1.5"/>
+                        <line x1="12" y1="11" x2="18" y2="12" stroke="white" stroke-width="1.5"/>
+                    </svg>
+                </div>
+                <span class="logo-text-small">allumni</span>
+            </div>
+        </main>
+    </div>
+
+    <div class="detail-modal" id="detailModal">
+        <div class="detail-dialog">
+            <div class="detail-header">
+                <button class="detail-close" type="button" id="closeModalButton">Fechar</button>
+                <h2 id="detailTitle" style="margin-top: 18px; font-size: 28px; font-weight: 500;">Detalhes</h2>
+                <p id="detailSubtitle" style="margin-top: 10px; line-height: 1.5;"></p>
+            </div>
+            <div class="detail-body">
+                <div id="detailMeta" class="info-list"></div>
+                <div id="detailDescription" style="line-height: 1.7; color: #23304a;"></div>
+                <div class="detail-actions">
+                    <button id="detailPrimaryAction" type="button" class="btn-primary">Ação principal</button>
+                    <button id="detailSecondaryAction" type="button" class="btn-soft" style="display: none;">Abrir link</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <script src="dashboard-api.js"></script>
+    <script src="logout.js"></script>
+    <script src="nav-helper.js"></script>
+    <script src="vagas.js"></script>
+</body>
+</html>
